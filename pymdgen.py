@@ -66,8 +66,9 @@ def doc_class(name, cls, section_level=3):
     print(docstr)
     print()
 
-    for name, func in inspect.getmembers(cls, inspect.ismethod):
-        doc_func(name, func, section_level + 1)
+    for name, func in cls.__dict__.items():
+        if inspect.isfunction(func):
+            doc_func(name, func, section_level + 1)
 
     print()
 
