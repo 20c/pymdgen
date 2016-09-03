@@ -84,6 +84,11 @@ def main(modules, debug, section_level):
         logging.basicConfig(level=logging.DEBUG)
 
     for name in modules:
+        if '/' in name or name.endswith('.py'):
+            name = name.replace('/', '.')
+            name = name.rstrip('.py')
+            print('modules should be in python notation, trying with', name)
+
         module = importlib.import_module(name)
 
         for k, v in inspect.getmembers(module):
