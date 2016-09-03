@@ -61,7 +61,16 @@ def doc_class(name, cls, section_level=3):
     if not docstr:
         return
 
+    # full mro is probably overkill?
+    # base_classes = inspect.getmro(cls)
+    base_classes = cls.__bases__
+    base_classes = (c.__module__ + '.' + c.__name__ for c in base_classes)
+
     print('#' * section_level, name)
+    print()
+    print('```')
+    print(name + '(' + ', '.join(base_classes) + ')')
+    print('```')
     print()
     print(docstr)
     print()
