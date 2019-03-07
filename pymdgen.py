@@ -1,5 +1,5 @@
 #!/bin/env python
-from __future__ import print_function
+
 
 import click
 import importlib
@@ -30,7 +30,7 @@ def doc_func(name, func, section_level=4):
     # check for args with defaults
     if spec[3]:
         args = spec[0][-len(spec[3]):]
-        default_args = zip(args, spec[3])
+        default_args = list(zip(args, spec[3]))
 
         # set args to rest
         args = spec[0][:-len(spec[3])]
@@ -75,7 +75,7 @@ def doc_class(name, cls, section_level=3):
     print(docstr)
     print()
 
-    for name, func in cls.__dict__.items():
+    for name, func in list(cls.__dict__.items()):
         if inspect.isfunction(func):
             doc_func(name, func, section_level + 1)
 
