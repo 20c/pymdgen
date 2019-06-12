@@ -5,13 +5,7 @@ import importlib
 import inspect
 import logging
 
-from pymdgen import (
-    doc_func,
-    doc_class,
-    )
-
-
-log = logging.getLogger('pymdgen')
+from pymdgen import doc_module
 
 
 def main():
@@ -35,21 +29,9 @@ def main():
         logging.basicConfig(level=logging.DEBUG)
 
     for name in modules:
-        if '/' in name or name.endswith('.py'):
-            name = name.replace('/', '.')
-            name = name.rstrip('.py')
-            print('modules should be in python notation, trying with', name)
-
-        module = importlib.import_module(name)
-
-        for k, v in inspect.getmembers(module):
-            if k == '__builtins__':
-                continue
-            log.debug("checking %s:%s" % (v, k))
-            if inspect.isfunction(v):
-                doc_func(k, v, section_level)
-            if inspect.isclass(v):
-                doc_class(k, v, section_level)
+        md = doc_module(name, debug=debug, section_level=section_level)
+        for line in md:
+            print(line)
 
 if __name__ == "__main__":
     main()
