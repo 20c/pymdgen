@@ -1,6 +1,6 @@
 #!/bin/env python
 
-import click
+import argparse
 import importlib
 import inspect
 import logging
@@ -14,12 +14,22 @@ from pymdgen import (
 log = logging.getLogger('pymdgen')
 
 
-@click.command()
-@click.option('--debug', help='display debug messages', is_flag=True, default=False)
-@click.option('--section-level', help='markdown section level', default=3)
-@click.argument('modules', nargs=-1)
-def main(modules, debug, section_level):
-    """ inspects given python modules and prints markdown """
+def main():
+
+    parser = argparse.ArgumentParser(
+        description="Inspects given python modules and prints markdown")
+
+    parser.add_argument("--debug", dest="debug", action="store_true",
+                        help="display debug messages")
+    parser.add_argument("--section-level", type=int, default=3,
+                        help="markdown section lavel")
+    parser.add_argument("modules", nargs="+")
+
+    args = parser.parse_args()
+
+    debug = args.debug
+    modules = args.modules
+    section_level = args.section_level
 
     if debug:
         logging.basicConfig(level=logging.DEBUG)
