@@ -29,7 +29,10 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'pymdgen=pymdgen.cli:main'
+            'pymdgen=pymdgen.cli:main',
+        ],
+        'markdown.extensions': [
+            'pymdgen=pymdgen.md:Extension',
         ]
     },
 
