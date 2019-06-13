@@ -70,6 +70,7 @@ def doc_func(name, func, section_level=4):
     output.append("")
     output.append(docstr)
     output.append("")
+    output.append("---")
 
     return output
 
@@ -104,7 +105,10 @@ def doc_class(name, cls, section_level=3):
     output.append(docstr)
     output.append("")
 
-    for func_name, func in list(cls.__dict__.items()):
+    functions = sorted(list(cls.__dict__.items()),
+                       key=lambda x: x[0])
+
+    for func_name, func in functions:
         if inspect.isfunction(func) or isinstance(func, property):
             output.extend(doc_func(func_name, func, section_level + 1))
 
