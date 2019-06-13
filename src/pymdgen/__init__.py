@@ -15,6 +15,12 @@ def doc_func(name, func, section_level=4):
         - section_level(int): markdown section level
     """
 
+    is_property = False
+
+    if isinstance(func, property):
+        func = func.fget
+        is_property = True
+
     output = []
     docstr = inspect.getdoc(func)
     # skip functions without a docstr
@@ -49,9 +55,16 @@ def doc_func(name, func, section_level=4):
     if end_args:
         display.append(', '.join(end_args))
 
-    output.append("{} {}".format('#' * section_level, name))
+    if name.find("__") == 0:
+        title = "\{}".format(name)
+    else:
+        title = name
+
+    output.append("{} {}".format('#' * section_level, title))
     output.append("")
     output.append('```')
+    if is_property:
+        output.append("@property")
     output.append(name + '(' + ', '.join(display) + ')')
     output.append('```')
     output.append("")
@@ -91,9 +104,9 @@ def doc_class(name, cls, section_level=3):
     output.append(docstr)
     output.append("")
 
-    for name, func in list(cls.__dict__.items()):
-        if inspect.isfunction(func):
-            output.extend(doc_func(name, func, section_level + 1))
+    for func_name, func in list(cls.__dict__.items()):
+        if inspect.isfunction(func) or isinstance(func, property):
+            output.extend(doc_func(func_name, func, section_level + 1))
 
     output.append("")
 
