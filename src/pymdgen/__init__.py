@@ -7,12 +7,13 @@ log = logging.getLogger('pymdgen')
 def doc_func(name, func, section_level=4):
 
     """
-    output.append markdown formatted documentation for a function
+    return markdown formatted documentation for a function
 
     Arguments:
-        - name(str): function name #FIXME: why is this manual?
-        - func(function)
-        - section_level(int): markdown section level
+
+    - name(str): function name #FIXME: why is this manual?
+    - func(function)
+    - section_level(int): markdown section level
     """
 
     is_property = False
@@ -77,12 +78,13 @@ def doc_func(name, func, section_level=4):
 
 def doc_class(name, cls, section_level=3):
     """
-    output.append markdown formatted documentation for a class
+    return markdown formatted documentation for a class
 
-    Arguments:
-        - name(str): function name #FIXME: why is this manual?
-        - cls(class)
-        - section_level(int): markdown section level
+    Arguments
+
+    - name(str): function name #FIXME: why is this manual?
+    - cls(class)
+    - section_level(int): markdown section level
     """
 
     output = []
@@ -119,22 +121,32 @@ def doc_class(name, cls, section_level=3):
 
 def doc_module(name, debug=False, section_level=3):
 
-        if '/' in name or name.endswith('.py'):
-            name = name.replace('/', '.')
-            name = name.rstrip('.py')
+    """
+    return markdown formatted documentation for a module
 
-        module = importlib.import_module(name)
-        output = []
+    Arguments:
 
-        for k, v in inspect.getmembers(module):
-            if k == '__builtins__':
-                continue
-            log.debug("checking %s:%s" % (v, k))
-            if inspect.isfunction(v):
-                output.extend(doc_func(k, v, section_level))
-            if inspect.isclass(v):
-                output.extend(doc_class(k, v, section_level))
+    - name(str): module name
+    - debug(bool): log debug messages
+    - section_level(int): markdown section level
+    """
 
-        return output
+    if '/' in name or name.endswith('.py'):
+        name = name.replace('/', '.')
+        name = name.rstrip('.py')
+
+    module = importlib.import_module(name)
+    output = []
+
+    for k, v in inspect.getmembers(module):
+        if k == '__builtins__':
+            continue
+        log.debug("checking %s:%s" % (v, k))
+        if inspect.isfunction(v):
+            output.extend(doc_func(k, v, section_level))
+        if inspect.isclass(v):
+            output.extend(doc_class(k, v, section_level))
+
+    return output
 
 
