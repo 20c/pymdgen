@@ -1,3 +1,4 @@
+import sys
 import re
 import subprocess
 
@@ -11,7 +12,7 @@ class GenCodeDocs(Preprocessor):
     output code docs for specified python module
     """
 
-    regex = re.compile("^\{pymdgen:(.+)\}$")
+    regex = re.compile(r"^\{pymdgen:(.+)\}$")
 
     def run(self, lines):
         new_lines = []
@@ -33,7 +34,7 @@ class GenCommandOutput(Preprocessor):
     render command output
     """
 
-    regex = re.compile("^\{pymdgen-cmd:(.+)\}$")
+    regex = re.compile(r"^\{pymdgen-cmd:(.+)\}$")
 
     def run(self, lines):
         new_lines = []
@@ -47,10 +48,15 @@ class GenCommandOutput(Preprocessor):
 
 
     def generate(self, command):
+        v = sys.version_info[0]
         output = subprocess.check_output(command.split(" "))
         lines = ['```']
         for line in output.split(b"\n"):
-            lines.append(u"{}".format(line)[1:].strip("'"))
+            if v == 2:
+                lines.append(u"{}".format(line).strip("'"))
+            else:
+                lines.append(u"{}".format(line)[1:].strip("'"))
+
         lines.append('```')
         return lines
 

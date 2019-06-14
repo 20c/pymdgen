@@ -1,13 +1,15 @@
+import sys
 import os.path
 
 import markdown
 
 
 EXT = ["pymdgen"]
+VERSION = "{}".format(sys.version_info[0])
 
 def test_gencodedocs():
     expected_path = os.path.join(
-        os.path.dirname(__file__), "data", "gencodedocs.expected.html")
+        os.path.dirname(__file__), "data", VERSION, "gencodedocs.expected.html")
 
     with open(expected_path, "r") as fh:
         expected = fh.read().strip("\n")
@@ -19,7 +21,7 @@ def test_gencodedocs():
 def test_gencommandoutput():
 
     expected_path = os.path.join(
-        os.path.dirname(__file__), "data", "gencommandoutput.expected.html")
+        os.path.dirname(__file__), "data", VERSION, "gencommandoutput.expected.html")
 
     with open(expected_path, "r") as fh:
         expected = fh.read().strip("\n")
