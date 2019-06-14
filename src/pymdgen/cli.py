@@ -8,8 +8,19 @@ import logging
 from pymdgen import doc_module
 
 
-def main():
+def run(modules, debug, section_level):
 
+    if debug:
+        logging.basicConfig(level=logging.DEBUG)
+
+    output = []
+    for name in modules:
+        md = doc_module(name, debug=debug, section_level=section_level)
+        for line in md:
+            output.append(line)
+    return output
+
+def main():
     parser = argparse.ArgumentParser(
         description="Inspects given python modules and prints markdown")
 
@@ -25,14 +36,9 @@ def main():
     modules = args.modules
     section_level = args.section_level
 
-    if debug:
-        logging.basicConfig(level=logging.DEBUG)
 
-    for name in modules:
-        md = doc_module(name, debug=debug, section_level=section_level)
-        for line in md:
-            print(line)
+    for line in run(modules, debug, section_level):
+        print(line)
 
 if __name__ == "__main__":
     main()
-
