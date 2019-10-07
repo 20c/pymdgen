@@ -2,3 +2,8 @@
 *.swo
 *.pyc
 *.log
+*.egg-info
+.tox
+.coverage
+coverage.xml
+/dist
