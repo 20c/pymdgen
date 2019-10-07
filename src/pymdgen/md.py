@@ -7,6 +7,7 @@ from markdown.extensions import Extension as BaseExtension
 
 from pymdgen import doc_module
 
+
 class GenCodeDocs(Preprocessor):
     """
     output code docs for specified python module
@@ -23,7 +24,6 @@ class GenCodeDocs(Preprocessor):
             else:
                 new_lines.append(line)
         return new_lines
-
 
     def generate(self, module_name):
         return doc_module(module_name)
@@ -46,22 +46,21 @@ class GenCommandOutput(Preprocessor):
                 new_lines.append(line)
         return new_lines
 
-
     def generate(self, command):
         v = sys.version_info[0]
         output = subprocess.check_output(command.split(" "))
-        lines = ['```']
+        lines = ["```"]
         for line in output.split(b"\n"):
             if v == 2:
                 lines.append(u"{}".format(line).strip("'"))
             else:
                 lines.append(u"{}".format(line)[1:].strip("'"))
 
-        lines.append('```')
+        lines.append("```")
         return lines
 
 
 class Extension(BaseExtension):
     def extendMarkdown(self, md):
-        md.preprocessors.register(GenCodeDocs(md), 'pymdgencode', 175)
-        md.preprocessors.register(GenCommandOutput(md), 'pymdgencmd', 175)
+        md.preprocessors.register(GenCodeDocs(md), "pymdgencode", 175)
+        md.preprocessors.register(GenCommandOutput(md), "pymdgencmd", 175)
