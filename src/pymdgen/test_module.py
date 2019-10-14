@@ -1,3 +1,7 @@
+"""
+A module to use as a target during unit tests
+"""
+
 class dummy(object):
     """ this is a dummy class """
 

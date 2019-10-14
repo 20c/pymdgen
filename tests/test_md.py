@@ -14,7 +14,10 @@ def test_gencodedocs():
     with open(expected_path, "r") as fh:
         expected = fh.read().strip("\n")
 
+
     md = markdown.markdown("{pymdgen:pymdgen.test_module}", extensions=EXT)
+
+    print(md)
     assert md == expected
 
 

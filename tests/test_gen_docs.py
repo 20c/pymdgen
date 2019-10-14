@@ -28,5 +28,5 @@ def test_doc_class():
     assert py2(output) == ['### class_a', '', '```', 'class_a(builtins.object)', '```', '', 'this is test class a ', '', '#### method_a', '', '```', 'method_a(self, a, b=None, **kwargs)', '```', '', 'this is test method a ', '', '---', '']
 
 def test_doc_module():
-    output = doc_module("pymdgen.test_module")
-    assert py2(output) == ['### dummy', '', '```', 'dummy(builtins.object)', '```', '', 'this is a dummy class ', '', '#### dummy_method', '', '```', 'dummy_method(self)', '```', '', 'this is a dummy func ', '', '---', '', '### dummy_func', '', '```', 'dummy_func()', '```', '', 'this is a dummy func ', '', '---']
+    output = doc_module("pymdgen.test_module", section_level=1)
+    assert py2(output) == ['# pymdgen.test_module', 'A module to use as a target during unit tests', '## dummy', '', '```', 'dummy(builtins.object)', '```', '', 'this is a dummy class ', '', '### dummy_method', '', '```', 'dummy_method(self)', '```', '', 'this is a dummy func ', '', '---', '', '## dummy_func', '', '```', 'dummy_func()', '```', '', 'this is a dummy func ', '', '---']
