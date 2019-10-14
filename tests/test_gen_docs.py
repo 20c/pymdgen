@@ -1,32 +1,36 @@
 import sys
 import py.test
 
-from pymdgen import (
-    doc_func,
-    doc_class,
-    doc_module,
-    )
+from pymdgen import doc_func, doc_class, doc_module
 
-from helpers import py2
+from helpers import py2, write_expected
 
-def func_a(a,b=None,**kwargs):
+
+def func_a(a, b=None, **kwargs):
     """ this is test function a """
     return
 
+
 class class_a(object):
     """ this is test class a """
+
     def method_a(self, a, b=None, **kwargs):
         """ this is test method a """
         return
 
-def test_doc_func():
+
+def test_doc_func(expected_docs_doc_func_md):
     output = doc_func("func_a", func_a)
-    assert py2(output) == ['#### func_a', '', '```', 'func_a(a, b=None, **kwargs)', '```', '', 'this is test function a ', '', '---']
+    # write_expected("doc_func.md", output)
+    assert "\n".join(output) == expected_docs_doc_func_md
 
-def test_doc_class():
+
+def test_doc_class(expected_docs_doc_class_md):
     output = doc_class("class_a", class_a)
-    assert py2(output) == ['### class_a', '', '```', 'class_a(builtins.object)', '```', '', 'this is test class a ', '', '#### method_a', '', '```', 'method_a(self, a, b=None, **kwargs)', '```', '', 'this is test method a ', '', '---', '']
+    # write_expected("doc_class.md", output)
+    assert "\n".join(output) == expected_docs_doc_class_md
 
-def test_doc_module():
-    output = doc_module("pymdgen.test_module", section_level=1)
-    assert py2(output) == ['# pymdgen.test_module', 'A module to use as a target during unit tests', '## dummy', '', '```', 'dummy(builtins.object)', '```', '', 'this is a dummy class ', '', '### dummy_method', '', '```', 'dummy_method(self)', '```', '', 'this is a dummy func ', '', '---', '', '## dummy_func', '', '```', 'dummy_func()', '```', '', 'this is a dummy func ', '', '---']
+
+def test_doc_module(expected_docs_list):
+    output = doc_module("pymdgen.test_module", section_level=3)
+    assert output == expected_docs_list

@@ -110,14 +110,59 @@ def doc_class(name, cls, section_level=3):
 
     functions = sorted(list(cls.__dict__.items()), key=lambda x: x[0])
 
+    out_methods = ["{} Methods and Properties".format("#" * (section_level+1))]
+    out_attributes = ["{} Attributes".format("#" * (section_level+1))]
+
     for func_name, func in functions:
         if inspect.isfunction(func) or isinstance(func, property):
-            output.extend(doc_func(func_name, func, section_level + 1))
+            out_methods.extend(doc_func(func_name, func, section_level + 2))
+        elif hasattr(func, "help"):
+            out_attributes.extend(doc_attribute(func_name, func))
+
+    if len(out_attributes) > 1:
+        output.extend(out_attributes)
+
+    if len(out_methods) > 1:
+        output.extend(out_methods)
 
     output.append("")
 
     return output
 
+
+def doc_attribute(name, attribute):
+    """
+    return markdown formatted documentation for a class attribute
+
+    This is an experimental feature that will document any attribute
+    set on class as long as the attribute it self has `help` property
+
+    Argument(s):
+
+    - name(str)
+    - attribute(function|class|instance)
+
+    Returns:
+
+    - list
+    """
+    if not hasattr(attribute, "help"):
+        return
+
+    output = []
+    type_name = None
+
+    if inspect.isclass(attribute):
+        type_name = "`{} Class`".format(attribute.__name__)
+    elif hasattr(attribute, "__class__"):
+        type_name = "`{} Instance`".format(attribute.__class__.__name__)
+
+    try:
+        output.append("- **{}** ({}): {}".format(name, type_name, attribute.help))
+    except:
+        pass
+
+    return output
 
 def doc_module(name, debug=False, section_level=3):
 

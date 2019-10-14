@@ -1,4 +1,22 @@
+import os
 import sys
+
+
+def write_expected(name, content):
+    version = sys.version_info[0]
+    if isinstance(content, list):
+        content = "\n".join(content)
+
+    path = os.path.join(
+        os.path.dirname(__file__),
+        "data",
+        "{}".format(version),
+        "gencodedocs.expected.{}".format(name),
+    )
+
+    with open(path, "w+") as fh:
+        fh.write(content)
+
 
 def py2(output):
 
@@ -11,5 +29,3 @@ def py2(output):
     if sys.version_info[0] == 2:
         output = [o.replace("__builtin__", "builtins") for o in output]
     return output
-
-
