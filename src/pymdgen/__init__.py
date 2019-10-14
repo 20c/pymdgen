@@ -138,13 +138,21 @@ def doc_module(name, debug=False, section_level=3):
     module = importlib.import_module(name)
     output = []
 
+    output.append("{} {}".format("#" * section_level, module.__name__))
+
+    docstr = inspect.getdoc(module)
+    if docstr:
+        output.append(docstr)
+
     for k, v in inspect.getmembers(module):
         if k == "__builtins__":
             continue
         log.debug("checking %s:%s" % (v, k))
         if inspect.isfunction(v):
-            output.extend(doc_func(k, v, section_level))
+            if v.__module__ == module.__name__:
+                output.extend(doc_func(k, v, section_level + 1))
         if inspect.isclass(v):
-            output.extend(doc_class(k, v, section_level))
+            if v.__module__ == module.__name__:
+                output.extend(doc_class(k, v, section_level + 1))
 
     return output

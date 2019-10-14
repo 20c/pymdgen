@@ -26,7 +26,7 @@ class GenCodeDocs(Preprocessor):
         return new_lines
 
     def generate(self, module_name):
-        return doc_module(module_name)
+        return doc_module(module_name, section_level=2)
 
 
 class GenCommandOutput(Preprocessor):
