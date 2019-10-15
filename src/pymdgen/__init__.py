@@ -86,14 +86,9 @@ def doc_func(name, func, section_level=4):
         title = "\{}".format(name)
     else:
         title = name
+    title = title + " `(" + ", ".join(display) + ")`"
 
     output.append("{} {}".format("#" * section_level, title))
-    output.append("")
-    output.append("```")
-    if is_property:
-        output.append("@property")
-    output.append(name + "(" + ", ".join(display) + ")")
-    output.append("```")
     output.append("")
     output.append(docstr)
     output.append("")

@@ -9,11 +9,7 @@ this is test class a
 
 #### Methods
 
-##### method_a
-
-```
-method_a(self, a, b=None, **kwargs)
-```
+##### method_a `(self, a, b=None, **kwargs)`
 
 this is test method a 
 
