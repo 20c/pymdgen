@@ -127,12 +127,12 @@ def parse_class_docstr(docstr, list_attributes, section_level):
     collect_attributes = False
     out = []
 
-    for line in [l.strip() for l in docstr.split("\n")]:
+    for line in docstr.split("\n"):
         if re.match(attributes_regex, line):
             collect_attributes = True
-        elif collect_attributes and line:
+        elif collect_attributes and line.strip():
             list_attributes.append(line)
-        elif collect_attributes and list_attributes and not line:
+        elif collect_attributes and list_attributes and not line.strip():
             collect_attributes = False
         else:
             out.append(adjust_header_indent(line, section_level + 1))
