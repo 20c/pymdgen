@@ -2,15 +2,18 @@
 
 ## [Unreleased]
 ### Added
-
-- fix #5: instanced attributes section
-- fix #7: add class methods
-
 ### Fixed
 ### Changed
 ### Deprecated
 ### Removed
 ### Security
+
+## [0.2.0]
+
+### Added
+
+- fix #5: instanced attributes section
+- fix #7: add class methods
 
 ## [0.1.1]
 
