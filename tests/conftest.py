@@ -43,4 +43,4 @@ def expected_docs_html():
 @pytest.fixture
 def expected_docs_list():
     output = expected_docs("md")
-    return output.split("\n")[:-1]
+    return output.split("\n")

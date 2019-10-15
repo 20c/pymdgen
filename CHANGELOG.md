@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 ### Added
+
+- fix #5: instanced attributes section
+
 ### Fixed
 ### Changed
 ### Deprecated

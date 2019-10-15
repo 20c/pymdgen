@@ -4,9 +4,11 @@
 class_a(__builtin__.object)
 ```
 
-this is test class a 
+this is test class a
 
-#### Methods and Properties
+
+#### Methods
+
 ##### method_a
 
 ```

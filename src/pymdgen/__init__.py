@@ -1,8 +1,33 @@
 import importlib
 import inspect
 import logging
+import re
 
 log = logging.getLogger("pymdgen")
+
+
+def adjust_header_indent(line, section_level):
+    """
+    Parses a line for a markdown header and fixes the
+    indent for the specified section level
+
+    eg. '## Header' with section_level=1 will become
+    '# Header"
+
+    Arguments:
+
+    - line(str)
+    - section_level(int)
+
+    Returns:
+
+    - str
+    """
+
+    m = re.match("[#+] (.+)", line)
+    if m:
+        line = u"{} {}".format("#" * (section_level), m.group(1))
+    return line
 
 
 def doc_func(name, func, section_level=4):
@@ -77,6 +102,44 @@ def doc_func(name, func, section_level=4):
     return output
 
 
+def parse_class_docstr(docstr, list_attributes, section_level):
+
+    """
+    Takes a class doc string markdown and parses it line for line
+    to fix and header indent issues as well as collect instanced
+    attribute docs
+
+    Arguments
+
+    - docstr(str): markdown formatted class docstr
+    - list_attributes(list): collect instance attribute docs into
+      this list
+    - section_level(int): header indent level
+
+    Returns:
+
+    - list: parsed/fixed output split into lines
+    """
+
+    attributes_regex = "[#+] Instanced (Attributes|Properties)"
+    header_regex = "[#+] (.+)"
+
+    collect_attributes = False
+    out = []
+
+    for line in [l.strip() for l in docstr.split("\n")]:
+        if re.match(attributes_regex, line):
+            collect_attributes = True
+        elif collect_attributes and line:
+            list_attributes.append(line)
+        elif collect_attributes and list_attributes and not line:
+            collect_attributes = False
+        else:
+            out.append(adjust_header_indent(line, section_level + 1))
+
+    return out
+
+
 def doc_class(name, cls, section_level=3):
     """
     return markdown formatted documentation for a class
@@ -94,6 +157,26 @@ def doc_class(name, cls, section_level=3):
     if not docstr:
         return output
 
+    head_indent = "#" * (section_level + 1)
+
+    out_methods = ["", "{} Methods".format(head_indent), ""]
+    out_attributes = ["", "{} Class Attributes".format(head_indent), ""]
+    out_instanced_attributes = [
+        "",
+        "{} Instanced Attributes".format(head_indent),
+        "",
+        "These attributes / properties will be available on instances of the class",
+        "",
+    ]
+
+    list_instanced_attributes = []
+    list_attributes = []
+
+    # parse the class docstr markdown to:
+    # - fix header indent according to section level
+    # - collect arbitrary instance attribute documentation
+    out_docstr = parse_class_docstr(docstr, list_instanced_attributes, section_level)
+
     # full mro is probably overkill?
     # base_classes = inspect.getmro(cls)
     base_classes = cls.__bases__
@@ -105,22 +188,32 @@ def doc_class(name, cls, section_level=3):
     output.append(name + "(" + ", ".join(base_classes) + ")")
     output.append("```")
     output.append("")
-    output.append(docstr)
+    output.extend(out_docstr)
     output.append("")
 
     functions = sorted(list(cls.__dict__.items()), key=lambda x: x[0])
 
-    out_methods = ["{} Methods and Properties".format("#" * (section_level+1))]
-    out_attributes = ["{} Attributes".format("#" * (section_level+1))]
-
     for func_name, func in functions:
-        if inspect.isfunction(func) or isinstance(func, property):
+        if inspect.isfunction(func):
             out_methods.extend(doc_func(func_name, func, section_level + 2))
+        elif isinstance(func, property):
+            list_instanced_attributes.extend(doc_property(func_name, func))
         elif hasattr(func, "help"):
-            out_attributes.extend(doc_attribute(func_name, func))
+            list_attributes.extend(doc_attribute(func_name, func))
 
-    if len(out_attributes) > 1:
+    # Append class attribute documentation to output
+
+    if list_attributes:
         output.extend(out_attributes)
+        output.extend(sorted(list_attributes))
+
+    # Append instanced attributed documentation to output
+
+    if list_instanced_attributes:
+        output.extend(out_instanced_attributes)
+        output.extend(sorted(list_instanced_attributes))
+
+    # Append method documentation to output
 
     if len(out_methods) > 1:
         output.extend(out_methods)
@@ -158,11 +251,29 @@ def doc_attribute(name, attribute):
         type_name = "`{} Instance`".format(attribute.__class__.__name__)
 
     try:
-        output.append("- **{}** ({}): {}".format(name, type_name, attribute.help))
+        output.append("- {} ({}): {}".format(name, type_name, attribute.help))
     except:
         pass
 
     return output
+
+
+def doc_property(name, prop):
+    """
+    return markdown formatted documentation for a class property
+
+    Argument(s):
+
+    - name(str)
+    - prop(property)
+
+    Returns:
+
+    - list
+    """
+    docstr = inspect.getdoc(prop.fget)
+    return ["- {} (`{}`): {}".format(name, "@property", docstr)]
+
 
 def doc_module(name, debug=False, section_level=3):
 
@@ -187,7 +298,9 @@ def doc_module(name, debug=False, section_level=3):
 
     docstr = inspect.getdoc(module)
     if docstr:
-        output.append(docstr)
+        output.extend(["", docstr])
+
+    output.append("")
 
     for k, v in inspect.getmembers(module):
         if k == "__builtins__":

@@ -3,6 +3,8 @@ import os.path
 
 import markdown
 
+from helpers import write_expected
+
 
 EXT = ["pymdgen"]
 VERSION = "{}".format(sys.version_info[0])
@@ -10,7 +12,8 @@ VERSION = "{}".format(sys.version_info[0])
 
 def test_gencodedocs(expected_docs_html):
     html = markdown.markdown("{pymdgen:pymdgen.test_module}", extensions=EXT)
-    assert html + "\n" == expected_docs_html
+    #write_expected("html", html)
+    assert html == expected_docs_html
 
 
 def test_gencommandoutput():

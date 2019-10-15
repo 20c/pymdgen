@@ -1,16 +1,33 @@
 ### pymdgen.test_module
+
 A module to use as a target during unit tests
+
 #### dummy
 
 ```
 dummy(__builtin__.object)
 ```
 
-this is a dummy class 
+this is a dummy class
 
-##### Attributes
-- **test_property** (`prop Instance`): property help
-##### Methods and Properties
+
+more class docstr
+
+
+##### Class Attributes
+
+- test_property (`prop Instance`): property help
+
+##### Instanced Attributes
+
+These attributes / properties will be available on instances of the class
+
+- another arbitrary property
+- arbitrary property
+- dummy_property (`@property`): this is a dummy property
+
+##### Methods
+
 ###### dummy_method
 
 ```
