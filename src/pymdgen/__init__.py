@@ -102,7 +102,7 @@ def doc_func(name, func, section_level=4):
     return output
 
 
-def parse_class_docstr(docstr, list_attributes, section_level):
+def parse_class_docstr(docstr, list_class_attributes, section_level):
 
     """
     Takes a class doc string markdown and parses it line for line
@@ -112,7 +112,7 @@ def parse_class_docstr(docstr, list_attributes, section_level):
     Arguments
 
     - docstr(str): markdown formatted class docstr
-    - list_attributes(list): collect instance attribute docs into
+    - list_class_attributes(list): collect instance attribute docs into
       this list
     - section_level(int): header indent level
 
@@ -131,8 +131,8 @@ def parse_class_docstr(docstr, list_attributes, section_level):
         if re.match(attributes_regex, line):
             collect_attributes = True
         elif collect_attributes and line.strip():
-            list_attributes.append(line)
-        elif collect_attributes and list_attributes and not line.strip():
+            list_class_attributes.append(line)
+        elif collect_attributes and list_class_attributes and not line.strip():
             collect_attributes = False
         else:
             out.append(adjust_header_indent(line, section_level + 1))
@@ -159,8 +159,7 @@ def doc_class(name, cls, section_level=3):
 
     head_indent = "#" * (section_level + 1)
 
-    out_methods = ["", "{} Methods".format(head_indent), ""]
-    out_attributes = ["", "{} Class Attributes".format(head_indent), ""]
+    out_class_attributes = ["", "{} Class Attributes".format(head_indent), ""]
     out_instanced_attributes = [
         "",
         "{} Instanced Attributes".format(head_indent),
@@ -169,8 +168,13 @@ def doc_class(name, cls, section_level=3):
         "",
     ]
 
+    out_class_methods = ["", "{} Class Methods".format(head_indent), ""]
+    out_methods = ["", "{} Methods".format(head_indent), ""]
+
     list_instanced_attributes = []
-    list_attributes = []
+    list_class_attributes = []
+    list_class_methods = []
+    list_methods = []
 
     # parse the class docstr markdown to:
     # - fix header indent according to section level
@@ -195,17 +199,19 @@ def doc_class(name, cls, section_level=3):
 
     for func_name, func in functions:
         if inspect.isfunction(func):
-            out_methods.extend(doc_func(func_name, func, section_level + 2))
+            list_methods.extend(doc_func(func_name, func, section_level + 2))
+        elif isinstance(func, classmethod):
+            list_class_methods.extend(doc_func(func_name, func.__func__, section_level + 2))
         elif isinstance(func, property):
             list_instanced_attributes.extend(doc_property(func_name, func))
         elif hasattr(func, "help"):
-            list_attributes.extend(doc_attribute(func_name, func))
+            list_class_attributes.extend(doc_attribute(func_name, func))
 
     # Append class attribute documentation to output
 
-    if list_attributes:
-        output.extend(out_attributes)
-        output.extend(sorted(list_attributes))
+    if list_class_attributes:
+        output.extend(out_class_attributes)
+        output.extend(sorted(list_class_attributes))
 
     # Append instanced attributed documentation to output
 
@@ -213,10 +219,17 @@ def doc_class(name, cls, section_level=3):
         output.extend(out_instanced_attributes)
         output.extend(sorted(list_instanced_attributes))
 
+    # Appemd class method documentation to output
+
+    if list_class_methods:
+        output.extend(out_class_methods)
+        output.extend(list_class_methods)
+
     # Append method documentation to output
 
-    if len(out_methods) > 1:
+    if list_methods:
         output.extend(out_methods)
+        output.extend(list_methods)
 
     output.append("")
 

@@ -21,6 +21,12 @@ class dummy(object):
 
     test_property = prop()
 
+    @classmethod
+    def dummy_classmethod(self):
+        """ this is a dummy classmethod """
+
+        return
+
     def dummy_method(self):
         """ this is a dummy func """
 

@@ -4,6 +4,7 @@
 ### Added
 
 - fix #5: instanced attributes section
+- fix #7: add class methods
 
 ### Fixed
 ### Changed
