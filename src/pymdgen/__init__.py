@@ -196,7 +196,9 @@ def doc_class(name, cls, section_level=3):
         if inspect.isfunction(func):
             list_methods.extend(doc_func(func_name, func, section_level + 2))
         elif isinstance(func, classmethod):
-            list_class_methods.extend(doc_func(func_name, func.__func__, section_level + 2))
+            list_class_methods.extend(
+                doc_func(func_name, func.__func__, section_level + 2)
+            )
         elif isinstance(func, property):
             list_instanced_attributes.extend(doc_property(func_name, func))
         elif hasattr(func, "help"):
