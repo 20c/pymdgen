@@ -2,14 +2,17 @@
 
 ## [Unreleased]
 ### Added
-
-- check for existance of `pymdgen_type_info` when documenting class attributes
-
 ### Fixed
 ### Changed
 ### Deprecated
 ### Removed
 ### Security
+
+## [0.2.1]
+
+### Added
+
+- check for existance of `pymdgen_type_info` when documenting class attributes
 
 ## [0.2.0]
 
