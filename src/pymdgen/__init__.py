@@ -255,7 +255,9 @@ def doc_attribute(name, attribute):
     output = []
     type_name = None
 
-    if inspect.isclass(attribute):
+    if hasattr(attribute, "pymdgen_type_info"):
+        type_name = "`{}`".format(attribute.pymdgen_type_info)
+    elif inspect.isclass(attribute):
         type_name = "`{} Class`".format(attribute.__name__)
     elif hasattr(attribute, "__class__"):
         type_name = "`{} Instance`".format(attribute.__class__.__name__)
