@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 ### Added
+
+- check for existance of `pymdgen_type_info` when documenting class attributes
+
 ### Fixed
 ### Changed
 ### Deprecated
