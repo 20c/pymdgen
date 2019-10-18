@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 ### Added
+
+- fix #8: separate section for classes and functions
+
 ### Fixed
 ### Changed
 ### Deprecated

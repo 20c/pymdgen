@@ -2,6 +2,18 @@
 
 A module to use as a target during unit tests
 
+### Functions
+---
+
+#### dummy_func
+`def dummy_func()`
+
+this is a dummy func 
+
+---
+### Classes
+---
+
 #### dummy
 
 ```
@@ -28,7 +40,8 @@ These attributes / properties will be available on instances of the class
 
 ##### Class Methods
 
-###### dummy_classmethod `(self)`
+###### dummy_classmethod
+`def dummy_classmethod(self)`
 
 this is a dummy classmethod 
 
@@ -36,13 +49,8 @@ this is a dummy classmethod
 
 ##### Methods
 
-###### dummy_method `(self)`
-
-this is a dummy func 
-
----
-
-#### dummy_func `()`
+###### dummy_method
+`def dummy_method(self)`
 
 this is a dummy func 
 

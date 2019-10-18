@@ -86,9 +86,10 @@ def doc_func(name, func, section_level=4):
         title = "\{}".format(name)
     else:
         title = name
-    title = title + " `(" + ", ".join(display) + ")`"
+    param_str = "(" + ", ".join(display) + ")"
 
     output.append("{} {}".format("#" * section_level, title))
+    output.append("`def {}{}`".format(title, param_str))
     output.append("")
     output.append(docstr)
     output.append("")
@@ -306,7 +307,12 @@ def doc_module(name, debug=False, section_level=3):
     module = importlib.import_module(name)
     output = []
 
-    output.append("{} {}".format("#" * section_level, module.__name__))
+    head_indent = "#" * (section_level)
+
+    output.append("{} {}".format(head_indent, module.__name__))
+
+    out_classes = ["{} Classes".format(head_indent), "---", ""]
+    out_functions = ["{} Functions".format(head_indent), "---", ""]
 
     docstr = inspect.getdoc(module)
     if docstr:
@@ -320,9 +326,15 @@ def doc_module(name, debug=False, section_level=3):
         log.debug("checking %s:%s" % (v, k))
         if inspect.isfunction(v):
             if v.__module__ == module.__name__:
-                output.extend(doc_func(k, v, section_level + 1))
+                out_functions.extend(doc_func(k, v, section_level + 1))
         if inspect.isclass(v):
             if v.__module__ == module.__name__:
-                output.extend(doc_class(k, v, section_level + 1))
+                out_classes.extend(doc_class(k, v, section_level + 1))
+
+    if len(out_functions) > 3:
+        output.extend(out_functions)
+
+    if len(out_classes) > 3:
+        output.extend(out_classes)
 
     return output
