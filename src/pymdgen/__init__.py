@@ -99,7 +99,7 @@ def doc_func(name, func, section_level=4):
     param_str = "(" + ", ".join(display) + ")"
 
     output.append("{} {}".format("#" * section_level, title))
-    output.append("`def {}{}`".format(title, param_str))
+    output.append("`def {}{}`".format(name, param_str))
     output.append("")
     output.append(docstr)
     output.append("")
