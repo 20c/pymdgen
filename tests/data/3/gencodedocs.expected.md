@@ -5,6 +5,12 @@ A module to use as a target during unit tests
 ### Functions
 ---
 
+#### decorated_func
+`def decorated_func(specifc)`
+
+this is a decorated function 
+
+---
 #### dummy_func
 `def dummy_func()`
 

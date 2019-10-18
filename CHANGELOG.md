@@ -6,6 +6,9 @@
 - fix #8: separate section for classes and functions
 
 ### Fixed
+
+- fix #10: Function spec needs to work correctly for decorated functions (py3 only)
+
 ### Changed
 ### Deprecated
 ### Removed
