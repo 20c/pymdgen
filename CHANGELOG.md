@@ -2,17 +2,18 @@
 
 ## [Unreleased]
 ### Added
-
-- fix #8: separate section for classes and functions
-
 ### Fixed
-
-- fix #10: Function spec needs to work correctly for decorated functions (py3 only)
-
 ### Changed
 ### Deprecated
 ### Removed
 ### Security
+
+## [0.2.2]
+
+### Fixed
+
+- fix #8: separate section for classes and functions
+- fix #10: Function spec needs to work correctly for decorated functions (py3 only)
 
 ## [0.2.1]
 
