@@ -4,5 +4,10 @@
 [![Codecov](https://img.shields.io/codecov/c/github/20c/pymdgen/master.svg?maxAge=3600)](https://codecov.io/github/20c/pymdgen)
 [![Requires.io](https://img.shields.io/requires/github/20c/pymdgen.svg?maxAge=3600)](https://requires.io/github/20c/pymdgen/requirements)
 
+A python code markdown documentation generator
+
+# Documentation
+
+- [latest](https://pymdgen.readthedocs.io/en/latest/)
 
 
