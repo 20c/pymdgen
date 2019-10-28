@@ -1,5 +1,5 @@
-site_name: ctl
-site_url: https://github.com/20c/ctl
+site_name: pymdgen
+site_url: https://github.com/20c/pymdgen
 
 theme: readthedocs
 
