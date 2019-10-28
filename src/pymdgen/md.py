@@ -49,7 +49,7 @@ class GenCommandOutput(Preprocessor):
     def generate(self, command):
         v = sys.version_info[0]
         output = subprocess.check_output(command.split(" "))
-        lines = ["```"]
+        lines = ["```sh"]
         for line in output.split(b"\n"):
             if v == 2:
                 lines.append(u"{}".format(line).strip("'"))
