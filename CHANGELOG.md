@@ -3,13 +3,16 @@
 ## [Unreleased]
 ### Added
 ### Fixed
-
-- fix #11: ```sh code block for command output
-
 ### Changed
 ### Deprecated
 ### Removed
 ### Security
+
+## [0.2.3]
+
+### Fixed
+
+- fix #11: ```sh code block for command output
 
 ## [0.2.2]
 
