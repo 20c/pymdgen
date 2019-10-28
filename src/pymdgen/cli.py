@@ -1,5 +1,9 @@
 #!/bin/env python
 
+"""
+pymdgen cli
+"""
+
 import argparse
 import importlib
 import inspect
@@ -9,6 +13,20 @@ from pymdgen import doc_module
 
 
 def run(modules, debug, section_level):
+
+    """
+    run pymdgen for the specified module
+
+    **Arguments**
+
+    - modules (`list`): list of python module names
+    - debug (`bool`): debug mode
+    - section_level (`int`): header indent level to start out from
+
+    **Returns**
+
+    markdown lines (`list`)
+    """
 
     if debug:
         logging.basicConfig(level=logging.DEBUG)
