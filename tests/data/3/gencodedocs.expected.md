@@ -6,7 +6,7 @@ A module to use as a target during unit tests
 ---
 
 #### decorated_func
-`def decorated_func(specifc)`
+`def decorated_func(specific)`
 
 this is a decorated function 
 

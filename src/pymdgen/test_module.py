@@ -57,6 +57,6 @@ def decorate_this(fn):
 
 
 @decorate_this
-def decorated_func(specifc):
+def decorated_func(specific):
     """ this is a decorated function """
     return specific
