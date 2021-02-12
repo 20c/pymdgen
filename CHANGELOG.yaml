@@ -19,7 +19,7 @@
 0.2.3:
   fixed:
   - 'fix #11: ```sh code block for command output'
-Unreleased:
+1.0.0:
   added:
   - python3.7 support (#12)
   - python3.8 support (#12)
@@ -27,10 +27,14 @@ Unreleased:
   changed:
   - use poetry for package management (#13)
   - github workflows (#13)
-  deprecated: []
-  fixed: []
   removed:
   - python2.7 support (#12)
   - python3.4 support (#12)
   - python3.5 support (#12)
+Unreleased:
+  added: []
+  changed: []
+  deprecated: []
+  fixed: []
+  removed: []
   security: []
