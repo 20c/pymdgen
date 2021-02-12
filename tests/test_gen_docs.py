@@ -1,8 +1,3 @@
-import sys
-
-import py.test
-from helpers import py2, write_expected
-
 from pymdgen import doc_class, doc_func, doc_module
 
 

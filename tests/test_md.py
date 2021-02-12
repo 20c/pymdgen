@@ -2,7 +2,8 @@ import os.path
 import sys
 
 import markdown
-from helpers import write_expected
+
+# from helpers import write_expected
 
 EXT = ["pymdgen"]
 VERSION = "{}".format(sys.version_info[0])

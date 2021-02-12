@@ -1,7 +1,6 @@
 import subprocess
-import sys
 
-from helpers import write_expected
+# from helpers import write_expected
 
 from pymdgen.cli import run
 
