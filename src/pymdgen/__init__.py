@@ -26,7 +26,7 @@ def adjust_header_indent(line, section_level):
 
     m = re.match("[#+] (.+)", line)
     if m:
-        line = u"{} {}".format("#" * (section_level), m.group(1))
+        line = "{} {}".format("#" * (section_level), m.group(1))
     return line
 
 
@@ -52,11 +52,8 @@ def doc_func(name, func, section_level=4):
     - section_level(int): markdown section level
     """
 
-    is_property = False
-
     if isinstance(func, property):
         func = func.fget
-        is_property = True
 
     output = []
     docstr = inspect.getdoc(func)
@@ -93,13 +90,13 @@ def doc_func(name, func, section_level=4):
         display.append(", ".join(end_args))
 
     if name.find("__") == 0:
-        title = "\{}".format(name)
+        title = fr"\{name}"
     else:
         title = name
     param_str = "(" + ", ".join(display) + ")"
 
     output.append("{} {}".format("#" * section_level, title))
-    output.append("`def {}{}`".format(name, param_str))
+    output.append(f"`def {name}{param_str}`")
     output.append("")
     output.append(docstr)
     output.append("")
@@ -128,7 +125,7 @@ def parse_class_docstr(docstr, list_class_attributes, section_level):
     """
 
     attributes_regex = "[#+] Instanced (Attributes|Properties)"
-    header_regex = "[#+] (.+)"
+    # header_regex = "[#+] (.+)"
 
     collect_attributes = False
     out = []
@@ -165,17 +162,17 @@ def doc_class(name, cls, section_level=3):
 
     head_indent = "#" * (section_level + 1)
 
-    out_class_attributes = ["", "{} Class Attributes".format(head_indent), ""]
+    out_class_attributes = ["", f"{head_indent} Class Attributes", ""]
     out_instanced_attributes = [
         "",
-        "{} Instanced Attributes".format(head_indent),
+        f"{head_indent} Instanced Attributes",
         "",
         "These attributes / properties will be available on instances of the class",
         "",
     ]
 
-    out_class_methods = ["", "{} Class Methods".format(head_indent), ""]
-    out_methods = ["", "{} Methods".format(head_indent), ""]
+    out_class_methods = ["", f"{head_indent} Class Methods", ""]
+    out_methods = ["", f"{head_indent} Methods", ""]
 
     list_instanced_attributes = []
     list_class_attributes = []
@@ -267,15 +264,15 @@ def doc_attribute(name, attribute):
     type_name = None
 
     if hasattr(attribute, "pymdgen_type_info"):
-        type_name = "`{}`".format(attribute.pymdgen_type_info)
+        type_name = f"`{attribute.pymdgen_type_info}`"
     elif inspect.isclass(attribute):
-        type_name = "`{} Class`".format(attribute.__name__)
+        type_name = f"`{attribute.__name__} Class`"
     elif hasattr(attribute, "__class__"):
-        type_name = "`{} Instance`".format(attribute.__class__.__name__)
+        type_name = f"`{attribute.__class__.__name__} Instance`"
 
     try:
-        output.append("- {} ({}): {}".format(name, type_name, attribute.help))
-    except:
+        output.append(f"- {name} ({type_name}): {attribute.help}")
+    except Exception:
         pass
 
     return output
@@ -319,10 +316,10 @@ def doc_module(name, debug=False, section_level=3):
 
     head_indent = "#" * (section_level)
 
-    output.append("{} {}".format(head_indent, module.__name__))
+    output.append(f"{head_indent} {module.__name__}")
 
-    out_classes = ["{} Classes".format(head_indent), "---", ""]
-    out_functions = ["{} Functions".format(head_indent), "---", ""]
+    out_classes = [f"{head_indent} Classes", "---", ""]
+    out_functions = [f"{head_indent} Functions", "---", ""]
 
     docstr = inspect.getdoc(module)
     if docstr:
@@ -333,7 +330,7 @@ def doc_module(name, debug=False, section_level=3):
     for k, v in inspect.getmembers(module):
         if k == "__builtins__":
             continue
-        log.debug("checking %s:%s" % (v, k))
+        log.debug(f"checking {v}:{k}")
         if inspect.isfunction(v):
             if v.__module__ == module.__name__:
                 out_functions.extend(doc_func(k, v, section_level + 1))

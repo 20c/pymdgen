@@ -5,8 +5,6 @@ pymdgen cli
 """
 
 import argparse
-import importlib
-import inspect
 import logging
 
 from pymdgen import doc_module
