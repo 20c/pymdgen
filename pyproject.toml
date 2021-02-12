@@ -14,6 +14,12 @@ classifiers = [
     "Programming Language :: Python :: 3.6"
 ]
 
+include = [
+    "LICENSE",
+    "Ctl/VERSION",
+    "src/pymdgen/*.py"
+]
+
 [tool.poetry.scripts]
 pymdgen = "pymdgen.cli:main"
 
