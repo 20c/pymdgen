@@ -1,5 +1,5 @@
-import sys
 import os
+import sys
 
 import pytest
 
@@ -13,10 +13,10 @@ def expected_docs(ext):
         os.path.dirname(__file__),
         "data",
         VERSION,
-        "gencodedocs.expected.{}".format(ext),
+        f"gencodedocs.expected.{ext}",
     )
 
-    with open(expected_path, "r") as fh:
+    with open(expected_path) as fh:
         return fh.read()
 
 

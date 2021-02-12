@@ -5,11 +5,11 @@ A module to use as a target during unit tests
 from functools import wraps
 
 
-class prop(object):
+class prop:
     help = "property help"
 
 
-class dummy(object):
+class dummy:
     """
     this is a dummy class
 
@@ -47,6 +47,7 @@ def dummy_func():
     """ this is a dummy func """
     return
 
+
 def decorate_this(fn):
     @wraps(fn)
     def wrapped(*args):
@@ -54,9 +55,8 @@ def decorate_this(fn):
 
     return wrapped
 
+
 @decorate_this
 def decorated_func(specifc):
     """ this is a decorated function """
     return specific
-
-

@@ -1,8 +1,9 @@
 import subprocess
 import sys
 
-from pymdgen.cli import run
 from helpers import write_expected
+
+from pymdgen.cli import run
 
 
 def test_cli(expected_docs_md):
@@ -10,7 +11,7 @@ def test_cli(expected_docs_md):
     if isinstance(output, bytes):
         output = output.decode("unicode_escape")
 
-    assert output == expected_docs_md+"\n"
+    assert output == expected_docs_md + "\n"
 
 
 def test_run(expected_docs_list):

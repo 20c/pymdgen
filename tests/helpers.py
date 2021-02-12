@@ -10,8 +10,8 @@ def write_expected(name, content):
     path = os.path.join(
         os.path.dirname(__file__),
         "data",
-        "{}".format(version),
-        "gencodedocs.expected.{}".format(name),
+        f"{version}",
+        f"gencodedocs.expected.{name}",
     )
 
     with open(path, "w+") as fh:

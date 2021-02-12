@@ -1,9 +1,9 @@
-import sys
 import re
 import subprocess
+import sys
 
-from markdown.preprocessors import Preprocessor
 from markdown.extensions import Extension as BaseExtension
+from markdown.preprocessors import Preprocessor
 
 from pymdgen import doc_module
 
@@ -52,9 +52,9 @@ class GenCommandOutput(Preprocessor):
         lines = ["```sh"]
         for line in output.split(b"\n"):
             if v == 2:
-                lines.append(u"{}".format(line).strip("'"))
+                lines.append(f"{line}".strip("'"))
             else:
-                lines.append(u"{}".format(line)[1:].strip("'"))
+                lines.append(f"{line}"[1:].strip("'"))
 
         lines.append("```")
         return lines
