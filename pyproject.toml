@@ -4,6 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "pymdgen"
+readme = "README.md"
 version = "1.0.0.1"
 description = "python code markdown documentation generator"
 authors = [ "20C <code@20c.com>",]
