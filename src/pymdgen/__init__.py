@@ -32,12 +32,12 @@ def adjust_header_indent(line, section_level):
 
 def getargspec(func):
     """
-    Wrapper for inspect.getargspec that supports
+    Wrapper for inspect.getfullargspec that supports
     decorated functions
     """
     if hasattr(func, "__wrapped__"):
-        return inspect.getargspec(func.__wrapped__)
-    return inspect.getargspec(func)
+        return inspect.getfullargspec(func.__wrapped__)
+    return inspect.getfullargspec(func)
 
 
 def doc_func(name, func, section_level=4):
