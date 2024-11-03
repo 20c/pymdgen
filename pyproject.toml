@@ -4,6 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "pymdgen"
+readme = "README.md"
 version = "1.0.0.1"
 description = "python code markdown documentation generator"
 authors = [ "20C <code@20c.com>",]
@@ -15,7 +16,8 @@ include = [ "LICENSE", "Ctl/VERSION", "src/pymdgen/*.py",]
 pymdgen = "pymdgen.cli:main"
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = ">=3.6.1,<4.0"
+pre-commit = "^2.14.0"
 
 [tool.poetry.dev-dependencies]
 codecov = ">=2.0.5"
