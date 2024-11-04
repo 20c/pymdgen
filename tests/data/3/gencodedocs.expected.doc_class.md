@@ -4,14 +4,14 @@
 class_a(builtins.object)
 ```
 
-this is test class a 
+this is test class a
 
 
 #### Methods
 
 ##### method_a
-`def method_a(self, a, b=None, **kwargs)`
+`def method_a(self, a, b, kwargs=None)`
 
-this is test method a 
+this is test method a
 
 ---

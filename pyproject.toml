@@ -23,6 +23,7 @@ classifiers = [
 include = [ "LICENSE", "Ctl/VERSION", "src/pymdgen/*.py", ]
 
 dependencies = [
+    "pluggy>=1.5.0",
     "pre-commit>=2.14.0",
 ]
 

@@ -43,13 +43,15 @@ def getargspec(func):
         list(sig.parameters),
         None,
         None,
-        [param.default for param in sig.parameters.values() if param.default != inspect.Parameter.empty],
+        [
+            param.default
+            for param in sig.parameters.values()
+            if param.default != inspect.Parameter.empty
+        ],
     ]
 
 
-
 def doc_func(name, func, section_level=4):
-
     """
     return markdown formatted documentation for a function
 
@@ -98,7 +100,7 @@ def doc_func(name, func, section_level=4):
         display.append(", ".join(end_args))
 
     if name.find("__") == 0:
-        title = fr"\{name}"
+        title = rf"\{name}"
     else:
         title = name
     param_str = "(" + ", ".join(display) + ")"
@@ -114,7 +116,6 @@ def doc_func(name, func, section_level=4):
 
 
 def parse_class_docstr(docstr, list_class_attributes, section_level):
-
     """
     Takes a class doc string markdown and parses it line for line
     to fix and header indent issues as well as collect instanced
@@ -304,7 +305,6 @@ def doc_property(name, prop):
 
 
 def doc_module(name, debug=False, section_level=3):
-
     """
     return markdown formatted documentation for a module
 

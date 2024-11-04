@@ -11,7 +11,6 @@ from pymdgen import doc_module
 
 
 def run(modules, debug, section_level):
-
     """
     run pymdgen for the specified module
 
