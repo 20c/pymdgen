@@ -25,12 +25,12 @@ class dummy:
 
     @classmethod
     def dummy_classmethod(self):
-        """ this is a dummy classmethod """
+        """this is a dummy classmethod"""
 
         return
 
     def dummy_method(self):
-        """ this is a dummy func """
+        """this is a dummy func"""
 
         return
 
@@ -44,7 +44,7 @@ class dummy:
 
 
 def dummy_func():
-    """ this is a dummy func """
+    """this is a dummy func"""
     return
 
 
@@ -58,5 +58,5 @@ def decorate_this(fn):
 
 @decorate_this
 def decorated_func(specific):
-    """ this is a decorated function """
+    """this is a decorated function"""
     return specific

@@ -3,7 +3,7 @@ import sys
 
 import pytest
 
-VERSION = "{}".format(sys.version_info[0])
+VERSION = f"{sys.version_info[0]}"
 
 # TODO: switch to pytest-filedata
 
