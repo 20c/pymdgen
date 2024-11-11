@@ -10,7 +10,7 @@ this is test class a
 #### Methods
 
 ##### method_a
-`def method_a(self, a, b, kwargs=None)`
+`def method_a(self, a, b=None, **kwargs)`
 
 this is test method a
 

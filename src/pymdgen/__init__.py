@@ -38,17 +38,19 @@ def getargspec(func):
     if hasattr(func, "__wrapped__"):
         func = func.__wrapped__
 
-    sig = inspect.signature(func)
-    return [
-        list(sig.parameters),
-        None,
-        None,
-        [
-            param.default
-            for param in sig.parameters.values()
-            if param.default != inspect.Parameter.empty
-        ],
-    ]
+        sig = inspect.signature(func)
+
+        return [
+            list(sig.parameters),
+            None,
+            None,
+            [
+                param.default
+                for param in sig.parameters.values()
+                if param.default != inspect.Parameter.empty
+            ],
+        ]
+    return inspect.getfullargspec(func)
 
 
 def doc_func(name, func, section_level=4):
