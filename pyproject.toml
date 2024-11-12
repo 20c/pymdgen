@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "pymdgen"
 readme = "README.md"
-version = "1.0.0.1"
+version = "1.1.0"
 description = "python code markdown documentation generator"
 authors = [{ name = "20C", email = "code@20c.com" }]
 license = "Apache-2.0"
