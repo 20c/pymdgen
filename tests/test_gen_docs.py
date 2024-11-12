@@ -2,15 +2,15 @@ from pymdgen import doc_class, doc_func, doc_module
 
 
 def func_a(a, b=None, **kwargs):
-    """ this is test function a """
+    """this is test function a"""
     return
 
 
 class class_a:
-    """ this is test class a """
+    """this is test class a"""
 
     def method_a(self, a, b=None, **kwargs):
-        """ this is test method a """
+        """this is test method a"""
         return
 
 

@@ -6,7 +6,7 @@ import markdown
 # from helpers import write_expected
 
 EXT = ["pymdgen"]
-VERSION = "{}".format(sys.version_info[0])
+VERSION = f"{sys.version_info[0]}"
 
 
 def test_gencodedocs(expected_docs_html):
@@ -16,7 +16,6 @@ def test_gencodedocs(expected_docs_html):
 
 
 def test_gencommandoutput():
-
     expected_path = os.path.join(
         os.path.dirname(__file__), "data", VERSION, "gencommandoutput.expected.html"
     )

@@ -8,13 +8,13 @@ A module to use as a target during unit tests
 #### decorated_func
 `def decorated_func(*args)`
 
-this is a decorated function 
+this is a decorated function
 
 ---
 #### dummy_func
 `def dummy_func()`
 
-this is a dummy func 
+this is a dummy func
 
 ---
 ### Classes
@@ -49,7 +49,7 @@ These attributes / properties will be available on instances of the class
 ###### dummy_classmethod
 `def dummy_classmethod(self)`
 
-this is a dummy classmethod 
+this is a dummy classmethod
 
 ---
 
@@ -58,6 +58,6 @@ this is a dummy classmethod
 ###### dummy_method
 `def dummy_method(self)`
 
-this is a dummy func 
+this is a dummy func
 
 ---
